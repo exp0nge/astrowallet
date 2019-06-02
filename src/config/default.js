@@ -12,8 +12,8 @@ module.exports = {
     connectionString: process.env.CONNECTION_STRING,
   },
   web3: {
-    endpoint: `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`,
-    networkId: 3, // Ropsten
+    endpoint: `https://kovan.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    networkId: 42, // Ropsten
   },
   port: process.env.PORT || 3001,
 };

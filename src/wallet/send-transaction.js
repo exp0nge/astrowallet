@@ -24,7 +24,8 @@ const sendTransaction = async (sender, amount, token, to) => {
     try {
         let sendResult = await walletWithProvider.sendTransaction(transaction);
         return {
-            message: `Transaction sent (pending): https://ropsten.etherscan.io/tx/${sendResult.hash}`,
+            message: `Transaction sent (pending): https://kovan.etherscan.io/tx/${sendResult.hash}`,
+            txLink: `https://kovan.etherscan.io/tx/${sendResult.hash}`,
             success: true,
             data: {
                 transactionSent: true,

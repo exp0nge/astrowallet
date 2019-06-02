@@ -27,7 +27,7 @@ const getWallet = async (userId, fromUser = false) => {
         let result = await Wallet.collection.insert(wallet);
 
         return {
-            message: `New wallet created: https://ropsten.etherscan.io/address/${wallet.address}`,
+            message: `New wallet created: https://kovan.etherscan.io/address/${wallet.address}`,
             success: true,
             data: {
                 walletCreated: true,
@@ -36,7 +36,7 @@ const getWallet = async (userId, fromUser = false) => {
         };
     } else {
         return {
-            message: `Existing wallet found: https://ropsten.etherscan.io/address/${existingUser.address}`,
+            message: `Existing wallet found: https://kovan.etherscan.io/address/${existingUser.address}`,
             success: true,
             data: {
                 walletCreated: false,

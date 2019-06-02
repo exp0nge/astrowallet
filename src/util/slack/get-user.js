@@ -28,10 +28,10 @@ const getUser = async (username) => {
 const getUserAddress = async (username) => {
     const slackUser = await getUser(username);
     const result = await getWallet(slackUser.id);
-
     return {
         user: `@${slackUser.name}`,
-        address: result.data.address
+        address: result.data.address,
+        userId: `${slackUser.id}`
     };
 }
 

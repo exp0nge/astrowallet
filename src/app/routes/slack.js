@@ -1,6 +1,7 @@
 const _  = require('lodash');
 const Router = require('koa-router');
 const { SLACK_COMMANDS } = require('../../constants');
+const {getClient} = require('../../util/slack/client');
 
 const getWallet = require('../../wallet/get-wallet');
 const sendTransaction = require('../../wallet/send-transaction');
@@ -10,7 +11,8 @@ const { getUserAddress } = require('../../util/slack/get-user');
 const router = new Router();
 
 router.post('/', async (ctx, next) => {
-    
+    const slackClient = getClient();
+
     const body = ctx.request.body;
     const user = body['user_id'];
 
@@ -32,7 +34,16 @@ router.post('/', async (ctx, next) => {
             if (recipient !== undefined && amount !== undefined && token !== undefined) {
                 let foundUser = await getUserAddress(recipient);
                 let txResult = await sendTransaction(user, amount, token, foundUser.address);
-                ctx.response.body = txResult.message;
+                await slackClient.chat.postMessage({
+                    channel: body['channel_id'],
+                    text: `<@${body['user_id']}> sent ${amount} ${token} to <@${foundUser.userId}>`,
+                    attachments: [
+                        {
+                            "text": `${txResult.txLink}`
+                        }
+                    ]
+                });
+                ctx.response.body = '';
             } else {
                 ctx.response.body = `Unable to parse command: recipient: ${recipient}, amount: ${amount}, token: ${token}`;
             }

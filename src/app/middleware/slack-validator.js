@@ -15,6 +15,7 @@ const createMiddleware = () => async (ctx, next) => {
         // console.log(`provided signature: ${signature}`);
         // console.log(`computed signature: ${computedSignature}`);
         if (signature === computedSignature) {
+            console.debug("request", ctx.request.body);
             await next();
         } else {
             throw new Error('Invalid signature');
