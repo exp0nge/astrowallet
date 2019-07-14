@@ -3,6 +3,7 @@ module.exports = {
         CREATE: 'create',
         SEND: 'send',
         BALANCE: 'balance',
+        RESTORE: 'restore'
     },
     SUPPORTED_TOKENS: {
         ETH: 'ETH',

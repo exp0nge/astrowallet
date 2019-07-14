@@ -33,6 +33,6 @@ const getUserAddress = async (username) => {
         address: result.data.address,
         userId: `${slackUser.id}`
     };
-}
+};
 
 module.exports = { getUser, getUserAddress };

@@ -23,6 +23,7 @@ const sendTransaction = async (sender, amount, token, to) => {
 
     try {
         let sendResult = await walletWithProvider.sendTransaction(transaction);
+        console.debug("sendResult", sendResult);
         return {
             message: `Transaction sent (pending): https://kovan.etherscan.io/tx/${sendResult.hash}`,
             txLink: `https://kovan.etherscan.io/tx/${sendResult.hash}`,
@@ -33,6 +34,7 @@ const sendTransaction = async (sender, amount, token, to) => {
             }
         };
     } catch (err) {
+        console.error(`unable to send: ${err}`);
         return {
             message: `unable to send: ${err}`,
             success: false,

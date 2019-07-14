@@ -13,3 +13,6 @@ node_modules/
 # Local config
 .env
 src/config/local.js
+yarn-error.log
+.idea
+.vagrant

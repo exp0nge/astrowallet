@@ -50,3 +50,8 @@ The astrowallet API only responds to Slack originated messages and verifies all 
 - Support ERC721 tokens (NFTs)
 - Automatic funding of new wallets (so users can send tx's)
 - Create Slackbot to notify users of incoming tx's
+
+
+## Notes on Vagrant on Windows
+
+`yarn install` will need to be used with the `--no-bin-links` flag.

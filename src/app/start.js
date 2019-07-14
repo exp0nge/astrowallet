@@ -5,6 +5,7 @@ const helmet = require('koa-helmet');
 const bodyParser = require('koa-bodyparser');
 const Koa = require('koa');
 const signale = require('signale');
+const { getProvider } = require('../util/ethereum/ethers');
 
 const { logError } = require('../util/error-logger');
 const error = require('./middleware/error');
@@ -14,7 +15,7 @@ const routes = require('./routes');
 
 const logger = signale.scope('application');
 
-const start = port => {
+const start = async port => {
     const app = new Koa();
 
     app.on('error', (err, { request }) => {
@@ -31,10 +32,12 @@ const start = port => {
     app.use(routes());
     app.use(invalidUrl());
 
+    const currentBlockNumber = await getProvider().getBlockNumber();
+
     app.listen(port);
 
     if (process.env.NODE_ENV === 'development') {
-        logger.start(`serving application at http://localhost:${port}`);
+        logger.start(`serving application at http://localhost:${port}, blockNumber: ${currentBlockNumber}`);
     } else {
         logger.start(`serving application on port ${port}`);
     }

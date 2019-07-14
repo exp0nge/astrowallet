@@ -7,6 +7,7 @@ const getWallet = require('../../wallet/get-wallet');
 const sendTransaction = require('../../wallet/send-transaction');
 const getBalance = require('../../wallet/get-balance');
 const { getUserAddress } = require('../../util/slack/get-user');
+const fromMnemonic = require('../../wallet/restore');
 
 const router = new Router();
 
@@ -23,6 +24,15 @@ router.post('/', async (ctx, next) => {
         case SLACK_COMMANDS.CREATE:
             let result = await getWallet(user, true);
             ctx.response.body = result.message; 
+            break;
+        case SLACK_COMMANDS.RESTORE:
+            let secret = rawText.split(' ')[1];
+            if (secret.length > 0 && secret.startsWith("0x")) {
+                let restoredResult  = await fromMnemonic(user, secret);
+                ctx.response.body = restoredResult.message;
+            } else {
+                ctx.response.body = `Secret must not be empty and must start with 0x.`
+            }
             break;
         case SLACK_COMMANDS.SEND:
             let rawCmd = rawText.split(' ');

@@ -22,7 +22,7 @@ const getWallet = async (userId, fromUser = false) => {
                 "GUSD": 0,
             },
             txCount: 0, // todo fix this
-        }
+        };
 
         let result = await Wallet.collection.insert(wallet);
 
